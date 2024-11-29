@@ -52,7 +52,7 @@ def crop(image: Image, aspect_ratio: float) -> Image:
     
   return image.crop((left,top,left+width,top+height))
 
-def add_date(image:Image, font:str=font) -> Image:
+def add_date(image: Image, font_size: float, font:str=font) -> Image:
   
   # Get date from exif
   year, month, day = get_exif(image, 306).split(' ')[0].split(':')
@@ -62,7 +62,7 @@ def add_date(image:Image, font:str=font) -> Image:
   draw = ImageDraw.Draw(image)
   
   # Choose a font
-  font = ImageFont.truetype(font, font_size*10000/image.height)
+  font = ImageFont.truetype(font, font_size)
   
   # Set the text color and position
   text_color = (255, 154, 46)
@@ -99,9 +99,9 @@ def resize(image: Image, max_dimension: int) -> Image:
 
 # Create file list
 try:
-  file_list = sorted(glob.glob(f'{os.getcwd()}/photos/*'), key=get_key)
+  file_list = sorted(glob.glob(os.path.join(os.getcwd(),in_path,'*')), key=get_key)
 except:
-  file_list = glob.glob(f'{os.getcwd()}/photos/*')
+  file_list = glob.glob(os.path.join(os.getcwd(),in_path,'*'))
 
 
 # Create output directory
@@ -129,8 +129,9 @@ for i in range(int(len(file_list)/2)):
   img2 = resize(img2, max_dimension)
   
   # Add Date
-  img1 = add_date(img1)
-  img2 = add_date(img2)
+  scaled_font_size = font_size*max(img1.height, img2.height)/900
+  img1 = add_date(img1, scaled_font_size)
+  img2 = add_date(img2, scaled_font_size)
 
   # Rotate to portrait before combining
   img1 = rotate(img1, landscape=False)
