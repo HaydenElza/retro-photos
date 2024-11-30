@@ -19,36 +19,40 @@ def get_exif(image: Image, index: int) -> dict:
   return image.getexif()[index]
 
 def crop(image: Image, aspect_ratio: float) -> Image:
-  width, height = image.size
-  top,left = 0,0
   
   def trim_height(image: Image, aspect_ratio: float, width: int, height: int) -> Image:
     old_height = height
     height = int(width/aspect_ratio)
     top = int((old_height-height)/2)
-    return image, width, height, top
+    return image, height, top
   
   def trim_width(image: Image, aspect_ratio: float, width: int, height: int) -> Image:
     old_width = width
     width = int(height*aspect_ratio)
     left = int((old_width-width)/2)
-    return image, width, height, left
+    return image, width, left
+  
+  width, height = image.size
+  top,left = 0,0
   
   portrait = height>width
-  greater_aspect_ratio = round(width/height,2)>round(aspect_ratio,2) if portrait else round(width/height,2)>round(aspect_ratio,2)
   aspect_ratio = aspect_ratio if portrait else 1/aspect_ratio
+  greater_aspect_ratio = round(width/height,2)>round(aspect_ratio,2) if portrait else round(width/height,2)>round(aspect_ratio,2)
+  
   
   if portrait:
     if greater_aspect_ratio:
-      image, width, height, left = trim_width(image, aspect_ratio, width, height)
+      image, width, left = trim_width(image, aspect_ratio, width, height)
     else:
-      image, width, height, top = trim_height(image, aspect_ratio, width, height)
+      image, height, top = trim_height(image, aspect_ratio, width, height)
    
   else:
-    if not greater_aspect_ratio:
-      image, width, height, top = trim_height(image, aspect_ratio, width, height)
+    if greater_aspect_ratio:
+      # image, height, top = trim_height(image, aspect_ratio, width, height)
+      image, width, left = trim_width(image, aspect_ratio, width, height)
     else:
-      image, width, height, left = trim_width(image, aspect_ratio, width, height)
+      # image, width, left = trim_width(image, aspect_ratio, width, height)
+      image, height, top = trim_height(image, aspect_ratio, width, height)
     
   return image.crop((left,top,left+width,top+height))
 
