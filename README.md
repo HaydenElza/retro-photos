@@ -1,4 +1,4 @@
-# Retro 2x3 Photos Side by Side
+# Retro 3x4 Photos Side by Side
 
 Add retro style date to photos and merge pairs side by side for printing on 4"x6" photos.
 
