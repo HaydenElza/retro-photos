@@ -17,7 +17,7 @@ conda activate retro_photos
 
 ## Run
 
-Before running the script add photos to `photos/` directory.
+Before running the script add photos to `input/` directory.
 
 > [!NOTE]
 > Photos are sorted by number.
@@ -33,5 +33,5 @@ The photos should be placed in a directory called `output/` in the project direc
 Unless otherwise specified: GNU General Public License v3.0 (GPL-3.0)
 
 `calculatrix-7.ttf`: Creative Commons Zero (CC0)  
-`photos/29047364532_ebe7e56e37_o.jpg`: Creative Commons Zero (CC0)  
-`photos/12609583_f2bb69ed83_o.jpg`: Creative Commons Zero (CC0)  
+`input/29047364532_ebe7e56e37_o.jpg`: Creative Commons Zero (CC0)  
+`input/12609583_f2bb69ed83_o.jpg`: Creative Commons Zero (CC0)  
