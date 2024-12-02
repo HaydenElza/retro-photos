@@ -20,7 +20,7 @@ conda activate retro_photos
 Before running the script add photos to `input/` directory.
 
 > [!NOTE]
-> Photos are sorted by number.
+> Photos are sorted by number if possible.
 
 Then run `app.py`:
 ```bash
